@@ -54,11 +54,11 @@ class App extends Component {
       <h3>{"My Address: " + this.state.myAddress}</h3>
       <form >
         <label class= "form-label">
-          Recipient:
+          Account:
           <input type="text" class="form-control" onChange={this.inputRecipient} />
         </label><br></br>
         <label class="form-label">
-          Amount:
+          Recipient:
           <input type="number" class="form-control" onChange={this.inputAmount} />
         </label>
         <label class="form-label"><br></br>
