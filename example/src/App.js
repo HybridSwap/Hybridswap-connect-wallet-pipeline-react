@@ -45,7 +45,7 @@ class App extends Component {
   </h5>
   <input
       className="form-check-input"
-      name="mainnet" 
+      name="testnet" 
       type="checkbox"
       checked={this.state.main}
       onChange={this.handleCheckChange} />
@@ -54,11 +54,11 @@ class App extends Component {
       <h3>{"My Address: " + this.state.myAddress}</h3>
       <form >
         <label class= "form-label">
-          Account:
+          Recipient Address:"2OWDII7AOVTNHA4YRFUGTUITOW62UAAQ7L7WJX7AXY34JZVBYFU65T7MV4";
           <input type="text" class="form-control" onChange={this.inputRecipient} />
         </label><br></br>
         <label class="form-label">
-          Recipient:
+          Amount of Algo:
           <input type="number" class="form-control" onChange={this.inputAmount} />
         </label>
         <label class="form-label"><br></br>
