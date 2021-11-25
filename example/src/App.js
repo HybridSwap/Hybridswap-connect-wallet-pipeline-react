@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { AlgoButton, AlgoSendButton, Pipeline} from 'pipeline-express-react'
 import './index.css'
-import logo from './pipeline-express.jpg'
+import logo from './pipeline-express.svg'
 
 const myAlgoWallet = Pipeline.init();
 class App extends Component {
@@ -11,7 +11,7 @@ class App extends Component {
     this.state = {
       main: true,
       myAddress: "",
-      recipient: "",
+      recipient: "2OWDII7AOVTNHA4YRFUGTUITOW62UAAQ7L7WJX7AXY34JZVBYFU65T7MV4",
       amount: 0,
       note: "",
       txID: ""
