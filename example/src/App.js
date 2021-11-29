@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { AlgoButton, AlgoSendButton, Pipeline} from 'pipeline-express-react'
+import { AlgoButton, Field, Radio, AlgoSendButton, Pipeline} from 'pipeline-express-react'
 import './index.css'
 import logo from './pipeline-express.svg'
 
@@ -34,7 +34,25 @@ class App extends Component {
   this.setState({main: ! this.state.main}, () => Pipeline.main = this.state.main)
 
   }
+}
 
+	fetchBalance = () => {
+		// Remove the current balance (so the UI doesn't display it while fetching)
+		this.setState({ balance: "" });
+		Pipeline.balance(this.state.myAddress).then(
+			data => {
+				this.setState({ balance: data });
+			}
+		);
+	}
+render() {
+		let explorerBaseLink;
+		explorerBaseLink = (
+			Pipeline.main ? 
+			'https://algoexplorer.io/tx/' : 
+			'https://testnet.algoexplorer.io/tx/'
+		);
+		
 
   render() {
     return <div align="center" class="card">    
@@ -49,27 +67,79 @@ class App extends Component {
       type="checkbox"
       checked={this.state.main}
       onChange={this.handleCheckChange} />
-  </div>            
+  </div>      
+    
       <AlgoButton wallet={myAlgoWallet} context={this} returnTo={"myAddress"} />
       <h3>{"My Address: " + this.state.myAddress}</h3>
       <form >
         <label class= "form-label">
           Recipient Address:"2OWDII7AOVTNHA4YRFUGTUITOW62UAAQ7L7WJX7AXY34JZVBYFU65T7MV4";
-          <input type="text" class="form-control" onChange={this.inputRecipient} />
-        </label><br></br>
-        <label class="form-label">
-          Amount of Algo:
-          <input type="number" class="form-control" onChange={this.inputAmount} />
-        </label>
-        <label class="form-label"><br></br>
-          Note:
-          <input type="text" class="form-control" onChange={this.inputNote} />
-        </label>
-      </form>
+    <SwitchNet />
+
+				{/* Display the Form if connected */}
+				{this.state.myAddress &&
+					<Box>
+						{/* Display the user's balance */}
+						{this.state.balance !== "" && <Heading as={"h4"}>Balance: {this.state.balance}</Heading>}
+						{/* Allow the user to update his balance via button click */}
+						<Button icon="Check" mr={1} onClick={this.fetchBalance} size="small">
+							Check Your Balance
+						</Button>
+						{/* Optional message field */}
+						<Box>
+							<Field label="Message" width={"100%"}>
+								<Input
+									type="text"
+									required={false}
+									onChange={this.handleMessageChange}
+									value={this.state.msg}
+									width={"100%"}
+								/>
+							</Field>
+						</Box>
+
+						{/* Amount selection */}
+						<Box>
+							<Field label="Amount" width={"100%"} >
+								<Radio
+									label="10 ALGO"
+									value={"10"}
+									checked={this.state.amount === "10"}
+									onChange={this.handleAmountSelectionChange}
+									required={true}
+								/>
+								<Radio
+									label="20 ALGO"
+									value={"20"}
+									checked={this.state.amount === "20"}
+									onChange={this.handleAmountSelectionChange}
+								/>
+								<Radio
+									label="50 ALGO"
+									value={"50"}
+									checked={this.state.amount === "50"}
+									onChange={this.handleAmountSelectionChange}
+								/>
+								<Radio
+									label="100 ALGO"
+									value={"100"}
+									checked={this.state.amount === "100"}
+									onChange={this.handleAmountSelectionChange}
+								/>
+								<Input
+									type="number"
+									required={true}
+									placeholder="Specific Amount"
+									value={this.state.amount}
+									onChange={this.handleAmountSelectionChange}
+									marginTop="10px"
+								/>	
+							</Field>
+						</Box>
       <AlgoSendButton
       index={0} //If ASA, must be a numeric index value !== 0
       recipient={this.state.recipient} //string value
-      amount={this.state.amount} //integer value in micro Algos
+      amount={this.state.amount * 1000000} //integer value  Algos
       note={this.state.note} //string value
       myAddress={this.state.myAddress} //string value
       wallet={myAlgoWallet} //reference to an instance of Pipeline.init(); that is called once when the app is initialized
