@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { AlgoButton, AlgoSendButton , Pipeline} from 'pipeline-express-react'
-import { Heading, Field, Radio, AlgoButton, Pipeline, Box, AlgoSendButton, Flash, Input, Button, SwitchNet } from 'pipeline-ui';
+import {  Field, Radio , Pipeline, Box, Flash, Input, Button, SwitchNet } from 'pipeline-ui';
 import './index.css'
 import logo from './pipeline-express.svg'
 
